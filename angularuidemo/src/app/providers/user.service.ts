@@ -26,10 +26,9 @@ export class UserService {
     return this.userSubject.value;
   }
 
-  login(username: string, password: string) {
-    return this.http.post<User>(`${environment.apiUrl}/user/authenticate`, { username, password })
+  login(userName: string, password: string) {
+    return this.http.post<User>(`${environment.apiUrl}/user/authenticate`, { userName, password })
       .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
         return user;
@@ -40,7 +39,7 @@ export class UserService {
     // remove user from local storage and set current user to null
     localStorage.removeItem('user');
     this.userSubject.next(null);
-    this.router.navigate(['']);
+    this.router.navigate(['../login']);
   }
 
   signUp(user: User) {
