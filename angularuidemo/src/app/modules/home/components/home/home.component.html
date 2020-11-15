@@ -1,1 +1,48 @@
-<p>home works!</p>
+
+<nav class="navbar navbar-dark bg-primary">
+  <span class="navbar-brand">
+    Welcome back {{user.firstName}}!
+  </span>
+  <button class="btn btn-outline-dark my-2 my-sm-0" (click)="logoutFromHome()">Logout</button>
+</nav>
+
+<div class="container">
+
+  <div *ngIf="showSubscriptions">
+    <div class="panel panel-default my-4">
+      <div class="panel-body">Your subscriptions</div>
+    </div>
+
+    <div class="card my-4" style="width: 50rem;" *ngFor="let item of subscribedBooks">
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.text}}</p>
+        <p class="card-text">R{{item.price}}</p>
+        <button href="#" class="btn btn-primary" (click)="unSubscribeEvent(item.subscriptionId)">Unsubscribe</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!showSubscriptions">
+    <div class="card my-4" style="width: 50rem;">
+      <div class="card-body">
+        <h5 class="card-title">Feel to subscribe!!</h5>
+        <p class="card-text">You can subscribe or unscribe at any time :-)</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="availableBooks">
+    <div class="panel panel-default my-4">
+      <div class="panel-body">You can subscribe to these books!</div>
+    </div>
+    <div class="card my-4" style="width: 50rem;" *ngFor="let item of availableBooks">
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.text}}</p>
+        <p class="card-text">R{{item.price}}</p>
+        <button href="#" class="btn btn-primary" (click)="subscribeEvent(item.bookId)">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
